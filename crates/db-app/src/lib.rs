@@ -614,6 +614,11 @@ pub const APP_MIGRATION_STEPS: &[anlg_db_migrate::MigrationStep] = &[
         scope: anlg_db_migrate::MigrationScope::Plain,
         sql: include_str!("../migrations/20261013090000_recording_import_jobs.sql"),
     },
+    anlg_db_migrate::MigrationStep {
+        id: "20261113120000_client_meeting_note",
+        scope: anlg_db_migrate::MigrationScope::Plain,
+        sql: include_str!("../migrations/20261113120000_client_meeting_note.sql"),
+    },
 ];
 
 pub fn schema() -> anlg_db_migrate::DbSchema {
@@ -1573,6 +1578,11 @@ async fn repair_missing_core_tables(
     if templates_missing_before_migration {
         sqlx::query(include_str!(
             "../migrations/20260524000000_default_templates.sql"
+        ))
+        .execute(pool)
+        .await?;
+        sqlx::query(include_str!(
+            "../migrations/20261113120000_client_meeting_note.sql"
         ))
         .execute(pool)
         .await?;
