@@ -590,7 +590,15 @@ async fn repair_migration_recreates_missing_templates_table() {
         .fetch_one(db.pool())
         .await
         .unwrap();
-    assert_eq!(row_count, 0);
+    // The client-meeting-note migration runs after the repair step, so the
+    // recreated table holds exactly that one seeded template; the original
+    // defaults are not re-seeded because their step already applied.
+    assert_eq!(row_count, 1);
+    let row_id: String = sqlx::query_scalar("SELECT id FROM templates")
+        .fetch_one(db.pool())
+        .await
+        .unwrap();
+    assert_eq!(row_id, "default-client-meeting-note");
 }
 
 #[tokio::test]
