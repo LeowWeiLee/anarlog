@@ -214,7 +214,7 @@ impl LocalModel {
         match self {
             LocalModel::Soniqo(model) => model.is_available_on_current_platform(),
             LocalModel::AppleSpeech(model) => model.is_available_on_current_platform(),
-            LocalModel::Whisper(_) => is_apple_silicon,
+            LocalModel::Whisper(_) => is_apple_silicon || cfg!(feature = "whisper-cpp"),
             LocalModel::Am(_) => is_apple_silicon,
             LocalModel::GgufLlm(_) => cfg!(target_arch = "aarch64"),
         }

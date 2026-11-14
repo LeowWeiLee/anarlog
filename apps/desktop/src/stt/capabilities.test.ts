@@ -227,13 +227,15 @@ describe("isConfiguredSttModel", () => {
 });
 
 describe("getUnsupportedDesktopLocalSttRepair", () => {
-  test("reports local STT only on Apple Silicon", () => {
+  test("reports local STT on Apple Silicon and Windows", () => {
     expect(isDesktopLocalSttAvailable("macos", "aarch64")).toBe(true);
     expect(isDesktopLocalSttAvailable("macos", "x86_64")).toBe(false);
-    expect(isDesktopLocalSttAvailable("windows", "aarch64")).toBe(false);
+    expect(isDesktopLocalSttAvailable("windows", "aarch64")).toBe(true);
+    expect(isDesktopLocalSttAvailable("windows", "x86_64")).toBe(true);
+    expect(isDesktopLocalSttAvailable("linux", "x86_64")).toBe(false);
   });
 
-  test.each(["windows", "linux"])(
+  test.each(["linux"])(
     "uses hosted transcription for entitled users on %s",
     (currentPlatform) => {
       expect(
@@ -248,7 +250,7 @@ describe("getUnsupportedDesktopLocalSttRepair", () => {
     },
   );
 
-  test.each(["windows", "linux"])(
+  test.each(["linux"])(
     "requires a new provider selection for free users on %s",
     (currentPlatform) => {
       expect(

@@ -134,11 +134,10 @@ impl<'a, R: Runtime, M: Manager<R>> LocalStt<'a, R, M> {
     }
 
     fn ensure_custom_model_supported() -> Result<(), crate::Error> {
-        if cfg!(all(
-            target_os = "macos",
-            target_arch = "aarch64",
-            feature = "whisper-cpp"
-        )) {
+        if cfg!(feature = "whisper-cpp")
+            && (cfg!(all(target_os = "macos", target_arch = "aarch64"))
+                || cfg!(target_os = "windows"))
+        {
             Ok(())
         } else {
             Err(crate::Error::UnsupportedPlatform)
