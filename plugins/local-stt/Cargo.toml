@@ -9,7 +9,7 @@ description = ""
 
 [features]
 default = []
-whisper-cpp = ["dep:anlg-transcribe-whisper-local", "dep:anlg-whisper-local"]
+whisper-cpp = ["dep:anlg-transcribe-whisper-local", "dep:anlg-whisper-local", "anlg-local-model/whisper-cpp"]
 coreml = ["whisper-cpp", "anlg-transcribe-whisper-local/coreml"]
 directml = ["whisper-cpp", "anlg-transcribe-whisper-local/directml"]
 cuda = ["whisper-cpp", "anlg-transcribe-whisper-local/cuda"]

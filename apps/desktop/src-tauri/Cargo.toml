@@ -130,6 +130,7 @@ tauri-plugin-local-stt = { workspace = true, features = ["metal"] }
 [target.'cfg(target_os = "windows")'.dependencies]
 windows = { workspace = true, features = ["Win32_Foundation", "Win32_UI_WindowsAndMessaging"] }
 windows-registry = "0.5.3"
+tauri-plugin-local-stt = { workspace = true, features = ["directml", "openblas"] }
 
 [dev-dependencies]
 tempfile = { workspace = true }

@@ -129,7 +129,10 @@ export function isDesktopLocalSttAvailable(
   currentPlatform: string,
   currentArch: string,
 ) {
-  return currentPlatform === "macos" && currentArch === "aarch64";
+  return (
+    (currentPlatform === "macos" && currentArch === "aarch64") ||
+    currentPlatform === "windows"
+  );
 }
 
 export function getUnsupportedDesktopLocalSttRepair(
